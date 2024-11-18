@@ -4,20 +4,24 @@ import {jwtDecode} from 'jwt-decode';
 
 import Cookies from 'js-cookie';
 
-
+const BaseUrl ='http://localhost:8080/'
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/user/login', credentials, {
-        withCredentials: true, // Allows sending cookies with the request
-      });
+      const response = await axios.post(`${BaseUrl}auth/login`, credentials 
+      // , {
+      //   withCredentials: true, // Allows sending cookies with the request
+      // }
+      );
 
       const { token } = response.data; // Assuming the server sends the token
       Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'strict' });
       const decoded = jwtDecode(token); // Decode token to get user data (if required)
-      return decoded; // Return decoded user data as payload
+
+      return response.data; // Return decoded user data as payload
+
     } catch (err) {
       return rejectWithValue(err.response ? err.response.data : err.message);
     }
@@ -26,19 +30,22 @@ export const loginUser = createAsyncThunk(
 
 
 // Async Thunk for Register
-export const registerUser = createAsyncThunk(
-  'auth/registerUser',
+export const signupUser = createAsyncThunk(
+  'auth/signupUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/user/register', credentials, {
-        withCredentials: true, // Allows sending cookies with the request
-      });
+      const response = await axios.post(`${BaseUrl}auth/signup`, credentials
+      // , {
+      //   withCredentials: true, // Allows sending cookies with the request
+      // }
+      );
       return response.data; // Assuming the server sends back user data or a success message
     } catch (err) {
       return rejectWithValue(err.response ? err.response.data : err.message);
     }
   }
 );
+
 
 // Action for Logout
 export const logoutUser = createAsyncThunk(

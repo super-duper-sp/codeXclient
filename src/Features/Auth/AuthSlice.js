@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, registerUser, syncUserData, logoutUser } from "../Auth/AuthAction";
+import { loginUser, signupUser, syncUserData, logoutUser } from "../Auth/AuthAction";
 
 const initialState = {
   isAuthenticated: false,
@@ -29,16 +29,16 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(registerUser.pending, (state) => {
+      .addCase(signupUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(signupUser.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.user = action.payload;
         state.loading = false;
       })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

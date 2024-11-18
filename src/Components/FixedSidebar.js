@@ -4,7 +4,7 @@ import Logo from '../assests/Logo'
 const Sidebar = () => {
   return (
       <aside className='w-64' aria-label='Sidebar'>
-          <div className='py-4 px-3 bg-gray-50 rounded dark:bg-gray-800'>
+          <div className='py-4 px-3 bg-green-700 rounded dark:bg-gray-800'>
               <Logo/>
   
               <ul className='space-y-2'>
